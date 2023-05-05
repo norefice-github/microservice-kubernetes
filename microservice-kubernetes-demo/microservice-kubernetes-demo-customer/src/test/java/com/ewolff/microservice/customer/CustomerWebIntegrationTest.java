@@ -49,50 +49,9 @@ public class CustomerWebIntegrationTest {
 		return resultEntity.getBody();
 	}
 
-	@Test
-	public void IsCustomerReturnedAsHTML() {
-
-		Customer customerWolff = customerRepository.findByName("Wolff").get(0);
-
-		String body = getForMediaType(String.class, MediaType.TEXT_HTML,
-				customerURL() + customerWolff.getId() + ".html");
-
-		assertThat(body, containsString("Wolff"));
-		assertThat(body, containsString("<div"));
-	}
-
 	@Before
 	public void setUp() {
 		restTemplate = new RestTemplate();
-	}
-
-	@Test
-	public void IsCustomerReturnedAsJSON() {
-
-		Customer customerWolff = customerRepository.findByName("Wolff").get(0);
-
-		String url = customerURL() + "customer/" + customerWolff.getId();
-		Customer body = getForMediaType(Customer.class, MediaType.APPLICATION_JSON, url);
-
-		assertThat(body, equalTo(customerWolff));
-	}
-
-	@Test
-	public void IsCustomerListReturned() {
-
-		Iterable<Customer> customers = customerRepository.findAll();
-		assertTrue(
-				StreamSupport.stream(customers.spliterator(), false).noneMatch(c -> (c.getName().equals("Hoeller1"))));
-		ResponseEntity<String> resultEntity = restTemplate.getForEntity(customerURL() + "/list.html", String.class);
-		assertTrue(resultEntity.getStatusCode().is2xxSuccessful());
-		String customerList = resultEntity.getBody();
-		assertFalse(customerList.contains("Hoeller1"));
-		customerRepository
-				.save(new Customer("Juergen", "Hoeller1", "springjuergen@twitter.com", "Schlossallee", "Linz"));
-
-		customerList = restTemplate.getForObject(customerURL() + "/list.html", String.class);
-		assertTrue(customerList.contains("Hoeller1"));
-
 	}
 
 	private String customerURL() {

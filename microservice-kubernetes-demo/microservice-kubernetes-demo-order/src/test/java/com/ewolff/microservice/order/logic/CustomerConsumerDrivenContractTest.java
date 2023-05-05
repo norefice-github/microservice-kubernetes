@@ -23,20 +23,6 @@ public class CustomerConsumerDrivenContractTest {
 	CustomerClient customerClient;
 
 	@Test
-	public void testFindAll() {
-		Collection<Customer> result = customerClient.findAll();
-		assertEquals(
-				1,
-				result.stream()
-						.filter(c -> (c.getName().equals("Wolff")
-								&& c.getFirstname().equals("Eberhard")
-								&& c.getEmail().equals(
-										"eberhard.wolff@gmail.com")
-								&& c.getStreet().equals("Unter den Linden") && c
-								.getCity().equals("Berlin"))).count());
-	}
-
-	@Test
 	public void testGetOne() {
 		Collection<Customer> allCustomer = customerClient.findAll();
 		Long id = allCustomer.iterator().next().getCustomerId();

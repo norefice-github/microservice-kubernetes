@@ -28,7 +28,7 @@
 						th:text="${@customerClient.getOne(order.customerId).firstname} + ' ' + ${@customerClient.getOne(order.customerId).name}">Firstname
 						Name</td>
 					<td th:text="${order.totalPrice(@catalogClient)}">42.0</td>
-					<td><form th:action="'/order/'+${order.id}" th:method="delete">
+					<td><form th:action="'/order/'+${order.id}" th:method="post">
 							<input type="submit" value="delete" class="btn btn-link" />
 						</form></td>
 				</tr>

@@ -1,5 +1,7 @@
 # How to Run
 
+NOTE: These are the original run instructions without telepresence.  The docker-build.sh has been modified from the original to not rely on compiling on the local machine.
+
 This is a step-by-step guide how to run the example:
 
 ## Installation

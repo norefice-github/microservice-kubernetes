@@ -1,0 +1,23 @@
+connection:
+  context: "arn:aws:eks:us-east-1:859382181073:cluster/demo-eks"
+  mappedNamespaces:
+    - "default"
+workloads:
+  # You can define one or more workload(s)
+  - name: apache
+    intercepts:
+      # You can define one or more intercept(s)
+      - headers: 
+        - name: x-telepresence-intercept-id
+          value: ordertrackapache1
+        localPort: 80
+        port: 80
+        handler: apache
+        service: apache
+handlers:
+  - name: apache
+    environment:
+      - name: PORT
+        value: "80"
+    docker:
+      image: microservice-kubernetes-demo-apache:latest
