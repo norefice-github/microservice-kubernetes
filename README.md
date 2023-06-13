@@ -308,6 +308,10 @@ Option 2: Preview URL
 1. Type `telepresence intercept --docker order --port 8080:8080 --docker-run -- -it --rm microservice-kubernetes-demo-order:latest`
 Note: you will get logging from the Java service, just scroll up to the telepresence output you need
 
+If you receive the following error, `telepresence intercept: error: option --docker cannot be used as long as a daemon is running on the host. Try telepresence quit -s` try running `docker network create --ipv6 --subnet=fd25::/64 --gateway=fd25::1 telepresence`
+
+Note: you may need to run `telepresence helm upgrade --team-mode`
+
 ### Show the container running(optional)
 1. Go to the containers tab
 2. Show there is a `tp-order` container running
