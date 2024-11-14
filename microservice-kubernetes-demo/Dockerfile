@@ -24,17 +24,17 @@ COPY microservice-kubernetes-demo-customer/src /opt/app/microservice-kubernetes-
 COPY microservice-kubernetes-demo-order/src /opt/app/microservice-kubernetes-demo-order/src
 RUN mvn -B -e clean install -DskipTests=true
 
-FROM openjdk:11.0.2-jre-slim as CATALOG
+FROM openjdk:11.0.16-jre-slim as CATALOG
 COPY --from=BUILD /opt/app/microservice-kubernetes-demo-catalog/target/microservice-kubernetes-demo-catalog-0.0.1-SNAPSHOT.jar .
 CMD /usr/bin/java -Xmx400m -Xms400m -jar microservice-kubernetes-demo-catalog-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
 
-FROM openjdk:11.0.2-jre-slim as CUSTOMER
+FROM openjdk:11.0.16-jre-slim as CUSTOMER
 COPY --from=BUILD /opt/app/microservice-kubernetes-demo-customer/target/microservice-kubernetes-demo-customer-0.0.1-SNAPSHOT.jar .
 CMD /usr/bin/java -Xmx400m -Xms400m -jar microservice-kubernetes-demo-customer-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
 
-FROM openjdk:11.0.2-jre-slim as ORDER
+FROM openjdk:11.0.16-jre-slim as ORDER
 COPY --from=BUILD /opt/app/microservice-kubernetes-demo-order/target/microservice-kubernetes-demo-order-0.0.1-SNAPSHOT.jar .
 CMD /usr/bin/java -Xmx400m -Xms400m -jar microservice-kubernetes-demo-order-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
